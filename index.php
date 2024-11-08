@@ -144,6 +144,16 @@
                                 Room Heater
                             </span>
                         </div>
+                        <div class="guests mb-4">
+                            <h6 class="mb-1">Guests</h6>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                5 Adults
+                            </span>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                4 Children
+                            </span>
+
+                        </div>
                         <div class="rating mb-4">
                             <h6 class="mb-1">Rating</h6>
                             <span class="badge rounded-pill bg-light">
@@ -197,6 +207,18 @@
                                 Room Heater
                             </span>
                         </div>
+                        <div class="facilities mb-4">
+                            <h6 class="mb-1">Guests</h6>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                5 Adults
+                            </span>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                4 Children
+                            </span>
+
+                        </div>
+
+
                         <div class="rating mb-4">
                             <h6 class="mb-1">Rating</h6>
                             <span class="badge rounded-pill bg-light">
@@ -249,6 +271,16 @@
                             <span class="badge rounded-pill bg-light text-dark  text-wrap ">
                                 Room Heater
                             </span>
+                        </div>
+                        <div class="facilities mb-4">
+                            <h6 class="mb-1">Guests</h6>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                5 Adults
+                            </span>
+                            <span class="badge rounded-pill bg-light text-dark  text-wrap ">
+                                4 Children
+                            </span>
+
                         </div>
                         <div class="rating mb-4">
                             <h6 class="mb-1">Rating</h6>
@@ -307,7 +339,62 @@
 
     <!-- Testimonials  -->
     <h2 class="mt-4 pt-4 mb-4 text-center fw-bold h-font">TESTIMONIALS</h2>
-    <div class="container">
+    <div class="container mt-5">
+
+        <div class="swiper swiper-testimonials">
+            <div class="swiper-wrapper mb-5">
+                <div class="swiper-slide bg-white p-4">
+                    <div class="profile d-flex align-items-center p-4 mb-3">
+                        <img src="images/features/star.svg" width="30px">
+                        <h6 class="m-0 ms-2">Random user1</h6>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, ducimus? Sapiente itaque
+                        dolores ullam unde excepturi ducimus vel? Animi, veniam!
+                    </p>
+                    <div class="rating">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide bg-white p-4">
+                    <div class="profile d-flex align-items-center p-4 mb-3">
+                        <img src="images/features/star.svg" width="30px">
+                        <h6 class="m-0 ms-2">Random user1</h6>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, ducimus? Sapiente itaque
+                        dolores ullam unde excepturi ducimus vel? Animi, veniam!
+                    </p>
+                    <div class="rating">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                </div>
+                <div class="swiper-slide bg-white p-4">
+                    <div class="profile d-flex align-items-center p-4 mb-3">
+                        <img src="images/features/star.svg" width="30px">
+                        <h6 class="m-0 ms-2">Random user1</h6>
+                    </div>
+                    <p>
+                        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Omnis, ducimus? Sapiente itaque
+                        dolores ullam unde excepturi ducimus vel? Animi, veniam!
+                    </p>
+                    <div class="rating">
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                        <i class="bi bi-star-fill text-warning"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="swiper-pagination"></div>
+        </div>
 
     </div>
 
@@ -375,6 +462,39 @@
             img.addEventListener('click', function () {
                 swiper.slideNext(); // Move to the next slide
             });
+        });
+
+        var swiper = new Swiper(".swiper-testimonials", {
+            effect: "coverflow",
+            grabCursor: true,
+            centeredSlides: true,
+            slidesPerView: "auto",
+            slidesPerView: "3",
+            loop: true,
+            coverflowEffect: {
+                rotate: 50,
+                stretch: 0,
+                depth: 100,
+                modifier: 1,
+                slideShadows: false,
+            },
+            pagination: {
+                el: ".swiper-pagination",
+            },
+            breakpoints: {
+                320: {
+                    slidesPreView: 1,
+                },
+                640: {
+                    slidesPreView: 1,
+                },
+                768: {
+                    slidesPreView: 2,
+                },
+                1024: {
+                    slidesPreView: 3,
+                },
+            }
         });
     </script>
 </body>
