@@ -218,6 +218,7 @@ adminLogin();
                         <div class="row" id="team-data">
 
 
+
                         </div>
 
 
@@ -246,7 +247,7 @@ adminLogin();
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn text-secondary shadow-none" data-bs-dismiss="modal"
-                                        onclick="">CANCEL</button>
+                                        onclick="member_name.value='',member_picture.value=''">CANCEL</button>
                                     <button type="submit" class="btn custom-bg text-white shadow-none">SUBMIT</button>
                                 </div>
                             </div>
@@ -262,6 +263,7 @@ adminLogin();
     <?php require('inc/scripts.php') ?>
 
     <script>
+
         let general_data;
         let contacts_data;
 
@@ -269,10 +271,12 @@ adminLogin();
         let site_title_inp = document.getElementById('site_title_inp');
         let site_about_inp = document.getElementById('site_about_inp');
 
+        let contact_s_form = document.getElementById('contact_s_form');
         let team_s_form = document.getElementById('team_s_form');
         let member_name_inp = document.getElementById('member_name_inp');
         let member_picture_inp = document.getElementById('member_picture_inp');
 
+        console.log(general_s_form)
 
 
         function get_general() {
@@ -381,9 +385,51 @@ adminLogin();
                     document.getElementById(contacts_p_id[i]).innerText = contacts_data[i + 1];
                 }
                 iframe.src = contacts_data[9];
+                contacts_inp(contacts_data);
             }
 
             xhr.send('get_contacts');
+        }
+
+
+        function contacts_inp(data) {
+            let contacts_inp_id = ['address_inp', 'gmap_inp', 'pn1_inp', 'pn2_inp', 'email_inp', 'fb_inp', 'insta_inp', 'twitter_inp', 'iframe_inp'];
+            for (i = 0; i < contacts_inp_id.length; i++) {
+                document.getElementById(contacts_inp_id[i]).value = data[i + 1];
+            }
+
+        }
+
+
+        function upd_contacts() {
+            let index = ['address', 'gmap', 'pn1', 'pn2', 'email', 'fb', 'insta', 'tw', 'iframe'];
+            let contacts_inp_id = ['address_inp', 'gmap_inp', 'pn1_inp', 'pn2_inp', 'email_inp', 'fb_inp', 'insta_inp', 'twitter_inp', 'iframe_inp'];
+            let data_str = "";
+            for (i = 0; i < index.length; i++) {
+                data_str += index[i] + "=" + document.getElementById(contacts_inp_id[i]).value + '&';
+
+            }
+            data_str += "upd_contacts";
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "ajax/settings_crud.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.onload = function () {
+
+                var myModal = document.getElementById('contacts-s');
+                var modal = bootstrap.Modal.getInstance(myModal);
+                modal.hide();
+                if (this.responseText == 1) {
+                    alert('success', 'Changes saved! ');
+                    get_contacts();
+
+                }
+                else {
+                    alert('error', ' No changes made!');
+                }
+                get_general();
+            }
+            xhr.send(data_str);
+
         }
 
 
@@ -403,27 +449,75 @@ adminLogin();
 
 
             xhr.onload = function () {
-                console.log(this.responseText);
-                var myModal = document.getElementById('general-s');
+
+                var myModal = document.getElementById('team-s');
                 var modal = bootstrap.Modal.getInstance(myModal);
                 modal.hide();
-                // if (this.responseText == 1) {
-                //     alert('success', 'Changes saved!');
-                //     get_general();
-                // }
-                // else {
-                //     alert('error', 'No changes made');
-                // }
+                if (this.responseText == 'inv_img') {
+                    alert('error', 'Only JPG and PNG images are allowed!');
+                }
+                else if (this.responseText == ' inv_size') {
+                    alert('error', 'Image should be less than 2MB! ');
+                }
+                else if (this.responseText == ' upd_failed') {
+                    alert('error', 'Image upload failed serevr down!');
+                }
+                else {
+                    alert('success', 'New member added!');
+                    member_name_inp.value = '';
+                    member_picture_inp.value = '';
+                    get_members();
+
+                }
             }
 
             xhr.send(data);
         }
 
+        function get_members() {
+
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "ajax/settings_crud.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onload = function () {
+                document.getElementById('team-data').innerHTML = this.responseText;
+            }
+
+
+            xhr.send('get_members');
+
+        }
+        function rem_member(val) {
+            let xhr = new XMLHttpRequest();
+            xhr.open("POST", "ajax/settings_crud.php", true);
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+            xhr.onload = function () {
+                if (this.responseText == 1) {
+                    alert('success', 'Member removed!');
+                    get_members();
+                }
+                else {
+                    alert('error', 'Server down!');
+                }
+
+
+            }
+
+
+            xhr.send('rem_member=' + val);
+
+        }
+
+
 
         window.onload = function () {
             get_general(); // Assuming this function exists
             get_contacts();
+            get_members();
         }
+
 
     </script>
 </body>
